@@ -1,0 +1,77 @@
+@if (loading()) {
+<app-loading-screen message="Cargando perfil..." />
+} @else if (trainer(); as profile) {
+<main class="page">
+    <header class="greeting">
+        <h1>¡Hola {{ firstName() }}!</h1>
+        <button type="button" class="edit-btn" (click)="editProfile()">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 20h4L19 9l-4-4L4 16z" />
+            </svg>
+            Editar perfil
+        </button>
+    </header>
+
+    <div class="layout">
+        <!-- Trainer card, summary version -->
+        <article class="trainer-card">
+            <div class="card-top">
+                <span class="role">Entrenador</span>
+                <img class="medal" src="badge.svg" alt="Medalla de entrenador" />
+            </div>
+
+            <div class="avatar">
+                <img [src]="profile.photo" [alt]="profile.name" />
+            </div>
+
+            <dl class="data">
+                @if (profile.hobby) {
+                <dt>Pasatiempo:</dt>
+                <dd>{{ profile.hobby }}</dd>
+                }
+
+                <dt>Edad:</dt>
+                <dd>{{ age() }} años</dd>
+
+                @if (showDocument()) {
+                <dt>DUI:</dt>
+                <dd>{{ profile.documentNumber }}</dd>
+                }
+            </dl>
+        </article>
+
+        <!-- Team -->
+        <section class="team">
+            <header class="team-header">
+                <h2>Mis Pokémon</h2>
+                <button type="button" class="edit-btn" (click)="editTeam()">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M4 20h4L19 9l-4-4L4 16z" />
+                    </svg>
+                    Editar
+                </button>
+            </header>
+
+            <!-- Only this box scrolls -->
+            <div class="team-scroll">
+                @for (pokemon of profile.team; track pokemon.id) {
+                <article class="pokemon">
+                    <div class="pokemon-info">
+                        <img class="sprite" [src]="pokemon.sprite" [alt]="pokemon.name" loading="lazy" />
+                        <h3 class="name">{{ pokemon.name }}</h3>
+                        <p class="types">{{ typeLabel(pokemon) }}</p>
+                    </div>
+
+                    <div class="stats">
+                        @for (stat of pokemon.stats; track stat.name) {
+                        <app-stat-bar [label]="stat.label" [percentage]="stat.percentage" [baseValue]="stat.baseValue"
+                            [color]="typeColor(pokemon)" />
+                        }
+                    </div>
+                </article>
+                }
+            </div>
+        </section>
+    </div>
+</main>
+}

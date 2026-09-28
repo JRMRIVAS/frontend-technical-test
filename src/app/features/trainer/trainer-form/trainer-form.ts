@@ -196,7 +196,6 @@ export class TrainerForm {
         try {
           (input as any).showPicker();
         } catch {
-          // Navegadores que no soporten showPicker simplemente mantienen el foco
         }
       }
     });
@@ -215,6 +214,9 @@ export class TrainerForm {
 
     const { name, hobby, birthDate, documentNumber } = this.form.getRawValue();
 
+    // Editing an existing trainer, so the team is already there
+    const isEditing = this.trainerService.isTeamComplete();
+
     this.trainerService.setProfile({
       photo: this.photo(),
       name: name.trim(),
@@ -225,7 +227,7 @@ export class TrainerForm {
       documentNumber: documentNumber.trim() || undefined
     });
 
-    this.router.navigate(['/pokemon']);
+    this.router.navigate([isEditing ? '/profile' : '/pokemon']);
   }
 
   // Changes the validators of the document field based on the birth date

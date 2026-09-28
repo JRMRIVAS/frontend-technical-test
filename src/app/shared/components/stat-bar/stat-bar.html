@@ -1,0 +1,8 @@
+<div class="stat">
+    <span class="label">{{ label() }}</span>
+
+    <div class="track" role="progressbar" [attr.aria-label]="label()" [attr.aria-valuenow]="baseValue()"
+        aria-valuemin="0" [attr.aria-valuemax]="100" [title]="baseValue()">
+        <div class="fill" [style.width.%]="percentage()" [style.background]="color()"></div>
+    </div>
+</div>

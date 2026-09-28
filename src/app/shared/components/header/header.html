@@ -1,3 +1,20 @@
 <header class="topbar">
     <img src="pokemonLogo.svg" alt="Pokémon" class="logo" />
+
+    <!-- Decorative only, they're in the design but have no action behind them -->
+    @if (showActions()) {
+    <div class="actions" aria-hidden="true">
+        <span class="name-chip">
+            {{ firstName() }}
+            <svg class="caret" viewBox="0 0 24 24">
+                <path d="M6 9l6 6 6-6" />
+            </svg>
+        </span>
+
+        <svg class="search-icon" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="7" />
+            <path d="M20 20l-3.5-3.5" />
+        </svg>
+    </div>
+    }
 </header>

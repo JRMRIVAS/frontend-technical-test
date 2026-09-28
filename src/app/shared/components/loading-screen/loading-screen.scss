@@ -8,28 +8,11 @@
     padding: 40px 20px;
 }
 
-.pokeball {
-    width: 120px;
-}
-
-.drop {
-    animation: fall 1.1s linear infinite;
-}
-
-@keyframes fall {
-    from {
-        transform: translateY(-14px);
-        opacity: 0;
-    }
-
-    30% {
-        opacity: 1;
-    }
-
-    to {
-        transform: translateY(22px);
-        opacity: 0;
-    }
+.loader-gif {
+    width: 267px;
+    max-width: 100%;
+    height: 274px;
+    object-fit: contain;
 }
 
 .message {
@@ -37,11 +20,4 @@
     font-size: 20px;
     font-weight: 700;
     color: var(--color-title-form);
-}
-
-// Respects the system setting for reduced motion
-@media (prefers-reduced-motion: reduce) {
-    .drop {
-        animation: none;
-    }
 }

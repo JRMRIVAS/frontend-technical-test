@@ -8,13 +8,13 @@ export interface TrainerProfile {
     hobby?: string;
     birthDate: string;
 
-    // Determined from birthDate: 'DUI' if the trainer is an adult, 'CARNET_MINORIDAD' otherwise.
+    // Determined from birthDate: 'DUI' if the trainer is an adult, 'CARNET_MINORIDAD' otherwise
     documentType: IdentificationType;
 
-    // DUI: required, 8 digits + dash + 1 digit (e.g. 12345678-9).
-    // Carnet de minoridad: optional, free format.
+    // DUI: required, 8 digits + dash + 1 digit
+    // Carnet de minoridad: optional, free format
     documentNumber?: string;
 
-    // Must contain exactly 3 Pokémon once the team is confirmed; empty before selection is complete.
+    // Must contain exactly 3 Pokémon once the team is confirmed; empty before selection is complete
     team: [Pokemon, Pokemon, Pokemon] | [];
 }

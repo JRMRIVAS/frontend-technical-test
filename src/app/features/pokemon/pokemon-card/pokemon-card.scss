@@ -12,7 +12,6 @@
     box-sizing: border-box;
     cursor: pointer;
 
-    // Recuadro del fondo: 163.44px × 106.35px según Figma
     &::before {
         content: '';
         position: absolute;
@@ -54,7 +53,6 @@
     }
 }
 
-// Sprite de 76.64px x 83.56px alineado a la parte superior, sobresaliendo del recuadro
 .sprite {
     position: absolute;
     top: 0;

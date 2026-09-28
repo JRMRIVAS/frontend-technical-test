@@ -72,7 +72,6 @@
     gap: 251px;
 }
 
-// Yellow card with the photo (392px × 600px en Figma)
 .photo-card {
     width: 392px;
     height: 600px;
@@ -83,7 +82,7 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 0; // Sin padding en la tarjeta; centrado y dimensiones exactas
+    padding: 0;
 
     h2 {
         margin: 58px 0 0;

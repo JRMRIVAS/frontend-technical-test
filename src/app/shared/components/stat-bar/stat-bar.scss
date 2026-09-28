@@ -1,0 +1,26 @@
+.stat {
+    display: grid;
+    grid-template-columns: 145px 1fr;
+    align-items: center;
+    gap: 16px;
+}
+
+.label {
+    font-size: 15px;
+    font-weight: 500;
+    color: #334155;
+    white-space: nowrap;
+}
+
+.track {
+    height: 12px;
+    overflow: hidden;
+    background: #e8ecf2;
+    border-radius: 999px;
+}
+
+.fill {
+    height: 100%;
+    border-radius: 999px;
+    transition: width 0.4s ease;
+}
