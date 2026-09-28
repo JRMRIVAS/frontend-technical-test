@@ -18,7 +18,7 @@ import { HOBBY_SUGGESTIONS } from '../../../core/constants/hobbies.constants';
 import { DocumentMask } from '../../../shared/directives/document-mask';
 
 
-const MAX_PHOTO_SIZE_BYTES = 2 * 1024 * 1024; // 2 MB, the photo ends up in localStorage
+const MAX_PHOTO_SIZE_BYTES = 4 * 1024 * 1024; // 4 MB, the photo ends up in localStorage
 const ALLOWED_PHOTO_TYPES = ['image/jpeg', 'image/png'];
 
 @Component({
@@ -60,6 +60,11 @@ export class TrainerForm {
   });
 
   readonly hobbyMenuOpen = signal(false);
+  readonly birthDateFocused = signal(false);
+
+  readonly isBirthDateActive = computed(() => {
+    return this.birthDateFocused() || !!this.form.controls.birthDate.value;
+  });
 
   // True once a hobby is picked, then it's shown as a chip
   readonly hobbyConfirmed = signal(false);
@@ -141,7 +146,7 @@ export class TrainerForm {
       return;
     }
     if (file.size > MAX_PHOTO_SIZE_BYTES) {
-      this.photoError.set('The image is too big, the limit is 2 MB.');
+      this.photoError.set('The image is too big, the limit is 4 MB.');
       input.value = '';
       return;
     }
@@ -181,6 +186,28 @@ export class TrainerForm {
   removeHobby(): void {
     this.form.controls.hobby.setValue('');
     this.hobbyConfirmed.set(false);
+  }
+
+  openDatePicker(input: HTMLInputElement): void {
+    this.birthDateFocused.set(true);
+    setTimeout(() => {
+      input.focus();
+      if ('showPicker' in HTMLInputElement.prototype) {
+        try {
+          (input as any).showPicker();
+        } catch {
+          // Navegadores que no soporten showPicker simplemente mantienen el foco
+        }
+      }
+    });
+  }
+
+  goBack(): void {
+    if (window.history.length > 1) {
+      window.history.back();
+    } else {
+      this.router.navigate(['/']);
+    }
   }
 
   onSubmit(): void {

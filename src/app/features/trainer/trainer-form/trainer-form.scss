@@ -1,47 +1,96 @@
 @mixin floated-label {
     top: 0;
-    font-size: 0.625rem;
-    font-weight: 600;
-    color: var(--color-primary);
+    left: 14px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--color-title-form);
+    background: #ffffff;
+    padding: 0 6px;
 }
 
 .page {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 48px 24px;
+    padding: 40px 90px;
+    box-sizing: border-box;
 }
 
-.title {
-    margin: 0;
-    font-size: 1.5rem;
-    color: var(--color-title);
-}
+.header {
+    margin-bottom: 36px;
 
-.subtitle {
-    margin: 4px 0 40px;
-    font-size: 0.75rem;
-    color: #666;
+    .title-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .back-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        padding: 0;
+        color: var(--color-title-form);
+        cursor: pointer;
+        line-height: 1;
+
+        svg {
+            width: 26px;
+            height: 26px;
+            stroke: currentColor;
+            stroke-width: 2.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+        }
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+
+    .title {
+        margin: 0;
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--color-title-form);
+        letter-spacing: -0.3px;
+    }
+
+    .subtitle {
+        margin: 6px 0 0;
+        font-size: 16px;
+        font-weight: 400;
+        color: var(--color-subtitle);
+    }
 }
 
 .layout {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 64px;
+    align-items: flex-start;
+    gap: 251px;
 }
 
-// Yellow card with the photo
+// Yellow card with the photo (392px × 600px en Figma)
 .photo-card {
-    width: 270px;
-    padding: 24px 18px;
+    width: 392px;
+    height: 600px;
     background: var(--color-yellow);
-    border-radius: 32px;
+    border-radius: 50px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
+    padding: 0; // Sin padding en la tarjeta; centrado y dimensiones exactas
 
     h2 {
-        margin: 0 0 24px;
-        font-size: 1.25rem;
+        margin: 58px 0 0;
+        font-size: 24px;
         font-weight: 500;
+        color: #1e293b;
+        line-height: 1.2;
     }
 }
 
@@ -49,45 +98,107 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 130px;
-    height: 130px;
-    margin: 0 auto 60px;
+    width: 269px;
+    height: 269px;
+    margin: 38px 0 0;
     overflow: hidden;
-    background: #e6ecf3;
-    border: 8px solid #fff;
+    background: #eef2f7;
+    border: 10px solid #ffffff;
     border-radius: 50%;
+    box-sizing: border-box;
 
     img {
         width: 100%;
         height: 100%;
         object-fit: cover;
+        border-radius: 50%;
     }
 
     svg {
-        width: 60px;
+        width: 100px;
+        height: 100px;
         fill: none;
-        stroke: #9db4cc;
-        stroke-width: 2;
+        stroke: #9bb0c1;
+        stroke-width: 2.2;
         stroke-linecap: round;
+        stroke-linejoin: round;
     }
 }
 
+// 334 Hug × 70 Hug box from Figma
 .photo-box {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
-    padding: 12px;
-    font: inherit;
-    font-size: 0.6875rem;
+    width: 334px;
+    height: 70px;
+    margin: 50px 0 0;
+    padding: 0 22px;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 500;
     color: var(--color-primary);
-    background: #fff;
-    border: 1px dashed #b5b5b5;
+    background: #ffffff;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+
+    &.empty {
+        border: 1.5px dashed #a5b6c5;
+
+        &:hover {
+            border-color: var(--color-primary);
+            background: #fafcff;
+        }
+
+        svg {
+            width: 24px;
+            height: 24px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+    }
+
+    &.filled {
+        border: 1.5px solid transparent;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        cursor: default;
+
+        .file-name {
+            max-width: 240px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+}
+
+.icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    background: none;
+    border: 0;
     border-radius: 6px;
     cursor: pointer;
+    transition: background-color 0.15s ease;
+
+    &.danger {
+        color: #dc2626;
+
+        &:hover {
+            background-color: rgba(220, 38, 38, 0.08);
+        }
+    }
 
     svg {
-        width: 18px;
+        width: 22px;
+        height: 22px;
         fill: none;
         stroke: currentColor;
         stroke-width: 2;
@@ -96,53 +207,57 @@
     }
 }
 
-.icon-btn {
-    padding: 0;
-    background: none;
-    border: 0;
-    cursor: pointer;
-
-    &.danger {
-        color: #d32f2f;
-    }
-}
-
+// 349 Hug × 530.69 Hug column from Figma
 .info {
-    width: 300px;
+    width: 349px;
+    box-sizing: border-box;
 
     h2 {
-        margin: 0;
-        font-size: 1.25rem;
-        font-weight: 500;
-        color: var(--color-title);
+        margin: 0 0 6px;
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--color-title-form);
+        letter-spacing: -0.3px;
     }
 
     .info-text {
-        margin: 4px 0 20px;
-        font-size: 0.75rem;
-        color: #777;
+        margin: 0 0 28px;
+        font-size: 14px;
+        line-height: 1.4;
+        color: var(--color-subtitle);
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 31px;
     }
 }
 
 .field {
     position: relative;
-    margin-bottom: 16px;
+    margin-bottom: 0;
 
     input {
         width: 100%;
-        height: 40px;
-        padding: 0 12px;
-        font: inherit;
-        font-size: 0.75rem;
-        background: #fff;
-        border: 1px solid #8a8a8a;
-        border-radius: 6px;
+        height: 54px;
+        padding: 0 16px;
+        font-family: inherit;
+        font-size: 15px;
+        color: #1e293b;
+        background: #ffffff;
+        border: 1.5px solid #8c9ba8;
+        border-radius: 12px;
         box-sizing: border-box;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
-        // Filled fields keep the blue border, like in the design
-        &:focus,
-        &:not(:placeholder-shown) {
+        &:focus {
             outline: none;
+            border-color: var(--color-primary);
+        }
+
+        // Filled fields keep the blue border, matching Figma
+        &:not(:placeholder-shown) {
             border-color: var(--color-primary);
         }
     }
@@ -150,49 +265,95 @@
     label {
         position: absolute;
         top: 50%;
-        left: 10px;
-        padding: 0 4px;
-        font-size: 0.75rem;
-        color: #333;
-        background: #fff;
+        left: 16px;
         transform: translateY(-50%);
+        padding: 0 4px;
+        font-size: 14px;
+        font-weight: 400;
+        color: #768494;
+        background: transparent;
         pointer-events: none;
-        transition: all 0.15s;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        white-space: nowrap;
+        z-index: 1;
     }
 
-    // The label moves up to the border when the field is focused or has a value.
-    // The date input always shows its format, so its label stays up
     input:focus+label,
     input:not(:placeholder-shown)+label,
-    input[type='date']+label,
     .chip-box+label {
         @include floated-label;
     }
+
+    &.date-field {
+        input {
+            padding-right: 48px;
+
+            &[type='date']::-webkit-calendar-picker-indicator {
+                position: absolute;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                width: 48px;
+                height: 100%;
+                opacity: 0;
+                cursor: pointer;
+            }
+        }
+
+        .calendar-btn {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4px;
+            background: none;
+            border: none;
+            color: var(--color-primary);
+            cursor: pointer;
+            z-index: 2;
+
+            svg {
+                width: 22px;
+                height: 22px;
+                fill: none;
+                stroke: currentColor;
+                stroke-width: 2;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+            }
+        }
+    }
 }
 
-// Same size as the inputs, but holds the hobby chip
+// Holds the hobby chip, matching the 54px input style
 .chip-box {
     display: flex;
     align-items: center;
-    height: 40px;
-    padding: 0 10px;
-    border: 1px solid var(--color-primary);
-    border-radius: 6px;
+    height: 54px;
+    padding: 0 14px;
+    border: 1.5px solid var(--color-primary);
+    border-radius: 12px;
     box-sizing: border-box;
+    background: #ffffff;
 }
 
 .chip {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    padding: 3px 6px 3px 10px;
-    font-size: 0.6875rem;
-    color: #333;
-    background: #e5e5e5;
+    gap: 8px;
+    padding: 6px 10px 6px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #1e293b;
+    background: #e8edf2;
     border-radius: 999px;
 
     button {
         display: flex;
+        align-items: center;
         padding: 0;
         background: none;
         border: 0;
@@ -201,77 +362,82 @@
 
     svg {
         width: 16px;
-        fill: #555;
-        stroke: #fff;
+        height: 16px;
+        fill: #64748b;
+        stroke: #ffffff;
         stroke-width: 2;
         stroke-linecap: round;
     }
 }
 
-// Hobby suggestions, floating over the fields below
+// Hobby suggestions dropdown
 .menu {
     position: absolute;
-    top: 44px;
+    top: calc(100% + 6px);
     left: 0;
     right: 0;
-    z-index: 10;
+    z-index: 20;
     margin: 0;
-    padding: 0;
+    padding: 6px 0;
     overflow: hidden;
     list-style: none;
-    background: #fff;
-    border-radius: 6px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    border: 1px solid #e2e8f0;
 
     li {
-        padding: 8px 14px;
-        font-size: 0.6875rem;
-        color: var(--color-title);
-        border-bottom: 1px solid #e3e9ef;
+        padding: 10px 16px;
+        font-size: 14px;
+        color: var(--color-title-form);
+        border-bottom: 1px solid #f1f5f9;
         cursor: pointer;
+        transition: background-color 0.15s ease;
 
         &:last-child {
             border-bottom: 0;
         }
 
         &:hover {
-            background: #e8eef5;
+            background-color: #f0f5fa;
         }
     }
 }
 
 .error {
-    margin: 4px 0 0;
-    font-size: 0.6875rem;
-    color: #d32f2f;
+    margin: 4px 0 0 4px;
+    font-size: 12px;
+    color: #dc2626;
 }
 
 .photo-error {
-    margin-top: 8px;
-}
-
-.hint {
-    margin: 0 0 16px;
-    font-size: 0.75rem;
-    color: #555;
+    margin-top: 10px;
 }
 
 .continue {
     display: block;
-    width: 130px;
-    height: 40px;
-    margin: 32px auto 0;
-    font: inherit;
+    width: 210px;
+    height: 48px;
+    margin: 14px auto 0;
+    font-family: inherit;
+    font-size: 16px;
     font-weight: 600;
-    color: #fff;
+    color: #ffffff;
     background: var(--color-primary);
     border: 0;
-    border-radius: 6px;
+    border-radius: 12px;
     cursor: pointer;
+    transition: background-color 0.2s ease, opacity 0.2s ease, transform 0.1s ease;
+
+    &:hover:not(:disabled) {
+        opacity: 0.92;
+        transform: translateY(-1px);
+    }
 
     &:disabled {
-        color: #999;
-        background: #e5e5e5;
+        color: #8c95a0;
+        background: #e2e4e8;
         cursor: not-allowed;
+        transform: none;
     }
 }

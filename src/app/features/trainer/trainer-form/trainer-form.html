@@ -1,6 +1,15 @@
 <main class="page">
-    <h1 class="title">¡Hola! Configuremos tu perfil</h1>
-    <p class="subtitle">Queremos conocerte mejor.</p>
+    <header class="header">
+        <div class="title-row">
+            <button type="button" class="back-btn" (click)="goBack()" aria-label="Volver">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M15 18l-6-6 6-6" />
+                </svg>
+            </button>
+            <h1 class="title">¡Hola! Configuremos tu perfil</h1>
+        </div>
+        <p class="subtitle">Queremos conocerte mejor.</p>
+    </header>
 
     <div class="layout">
         <!-- Photo card -->
@@ -12,8 +21,8 @@
                 <img [src]="photo()" alt="Foto de perfil" />
                 } @else {
                 <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <circle cx="12" cy="8" r="4" />
-                    <path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7" />
+                    <circle cx="12" cy="8.5" r="4.2" />
+                    <path d="M5 20c0-3.8 3.1-6.5 7-6.5s7 2.7 7 6.5" />
                 </svg>
                 }
             </div>
@@ -21,7 +30,7 @@
             <input #fileInput type="file" hidden accept="image/jpeg,image/png" (change)="onPhotoSelected($event)" />
 
             @if (photo()) {
-            <div class="photo-box">
+            <div class="photo-box filled">
                 <span class="file-name">{{ photoName() }}</span>
                 <button type="button" class="icon-btn danger" aria-label="Quitar foto" (click)="removePhoto()">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -30,8 +39,8 @@
                 </button>
             </div>
             } @else {
-            <button type="button" class="photo-box" (click)="fileInput.click()">
-                <span>Adjunta un foto</span>
+            <button type="button" class="photo-box empty" (click)="fileInput.click()">
+                <span>Adjunta una foto</span>
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M7 18a4 4 0 0 1-.5-8A6 6 0 0 1 18 9a4.5 4.5 0 0 1-.5 9M12 12v7M9 14.5l3-3 3 3" />
                 </svg>
@@ -94,9 +103,20 @@
                     }
                 </div>
 
-                <div class="field">
-                    <input id="birthDate" type="date" formControlName="birthDate" [max]="today" />
+                <div class="field date-field" [class.active]="isBirthDateActive()">
+                    <input #birthDateInput id="birthDate" [type]="isBirthDateActive() ? 'date' : 'text'"
+                        formControlName="birthDate" placeholder=" " [max]="today" (focus)="birthDateFocused.set(true)"
+                        (blur)="birthDateFocused.set(false)" />
                     <label for="birthDate">Cumpleaños*</label>
+                    <button type="button" class="calendar-btn" aria-label="Seleccionar fecha"
+                        (click)="openDatePicker(birthDateInput)">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                            <line x1="16" y1="2" x2="16" y2="6" />
+                            <line x1="8" y1="2" x2="8" y2="6" />
+                            <line x1="3" y1="10" x2="21" y2="10" />
+                        </svg>
+                    </button>
                     @if (form.controls.birthDate.hasError('futureDate')) {
                     <p class="error">La fecha no puede ser futura.</p>
                     }
