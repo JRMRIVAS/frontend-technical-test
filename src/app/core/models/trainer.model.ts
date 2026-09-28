@@ -11,8 +11,8 @@ export interface TrainerProfile {
     // Determined from birthDate: 'DUI' if the trainer is an adult, 'CARNET_MINORIDAD' otherwise.
     documentType: IdentificationType;
 
-    // Required only when documentType is 'DUI' (format: 8 digits + dash + 1 digit, e.g. 12345678-9).
-    // Omitted/undefined when documentType is 'CARNET_MINORIDAD'.
+    // DUI: required, 8 digits + dash + 1 digit (e.g. 12345678-9).
+    // Carnet de minoridad: optional, free format.
     documentNumber?: string;
 
     // Must contain exactly 3 Pokémon once the team is confirmed; empty before selection is complete.

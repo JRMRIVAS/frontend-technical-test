@@ -1,0 +1,119 @@
+<main class="page">
+    <h1 class="title">¡Hola! Configuremos tu perfil</h1>
+    <p class="subtitle">Queremos conocerte mejor.</p>
+
+    <div class="layout">
+        <!-- Photo card -->
+        <section class="photo-card">
+            <h2>Imagen perfil</h2>
+
+            <div class="avatar">
+                @if (photo()) {
+                <img [src]="photo()" alt="Foto de perfil" />
+                } @else {
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="8" r="4" />
+                    <path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7" />
+                </svg>
+                }
+            </div>
+
+            <input #fileInput type="file" hidden accept="image/jpeg,image/png" (change)="onPhotoSelected($event)" />
+
+            @if (photo()) {
+            <div class="photo-box">
+                <span class="file-name">{{ photoName() }}</span>
+                <button type="button" class="icon-btn danger" aria-label="Quitar foto" (click)="removePhoto()">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6" />
+                    </svg>
+                </button>
+            </div>
+            } @else {
+            <button type="button" class="photo-box" (click)="fileInput.click()">
+                <span>Adjunta un foto</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M7 18a4 4 0 0 1-.5-8A6 6 0 0 1 18 9a4.5 4.5 0 0 1-.5 9M12 12v7M9 14.5l3-3 3 3" />
+                </svg>
+            </button>
+            }
+
+            @if (photoError()) {
+            <p class="error photo-error">{{ photoError() }}</p>
+            }
+        </section>
+
+        <!-- Form -->
+        <section class="info">
+            <h2>Tu información</h2>
+            <p class="info-text">Completa la siguiente información para completar tu perfil</p>
+
+            <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+                <div class="field">
+                    <input id="name" type="text" formControlName="name" placeholder=" " maxlength="50"
+                        autocomplete="name" (input)="onNameInput()" />
+                    <label for="name">Nombre*</label>
+                    @if (form.controls.name.touched && form.controls.name.hasError('required')) {
+                    <p class="error">El nombre es obligatorio.</p>
+                    }
+                    @if (form.controls.name.touched && form.controls.name.hasError('invalidName')) {
+                    <p class="error">El nombre solo puede tener letras y espacios.</p>
+                    }
+                </div>
+
+                <div class="field">
+                    @if (hobbyConfirmed()) {
+                    <div class="chip-box">
+                        <span class="chip">
+                            {{ form.controls.hobby.value }}
+                            <button type="button" aria-label="Quitar pasatiempo" (click)="removeHobby()">
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M9 9l6 6M15 9l-6 6" />
+                                </svg>
+                            </button>
+                        </span>
+                    </div>
+                    } @else {
+                    <input id="hobby" type="text" formControlName="hobby" placeholder=" " autocomplete="off"
+                        (focus)="hobbyMenuOpen.set(true)" (input)="hobbyMenuOpen.set(true)"
+                        (blur)="hobbyMenuOpen.set(false)" (keydown.escape)="hobbyMenuOpen.set(false)"
+                        (keydown.enter)="confirmTypedHobby($event)" />
+                    }
+                    <label for="hobby">Pasatiempo favorito</label>
+
+                    @if (hobbyMenuOpen() && !hobbyConfirmed() && hobbySuggestions().length) {
+                    <ul class="menu" role="listbox">
+                        @for (option of hobbySuggestions(); track option) {
+                        <!-- mousedown is blocked so the input keeps focus and blur doesn't close the menu before the click -->
+                        <li role="option" (mousedown)="$event.preventDefault()" (click)="selectHobby(option)">
+                            {{ option }}
+                        </li>
+                        }
+                    </ul>
+                    }
+                </div>
+
+                <div class="field">
+                    <input id="birthDate" type="date" formControlName="birthDate" [max]="today" />
+                    <label for="birthDate">Cumpleaños*</label>
+                    @if (form.controls.birthDate.hasError('futureDate')) {
+                    <p class="error">La fecha no puede ser futura.</p>
+                    }
+                </div>
+
+                <!-- Same field for both documents, the mask, label and rules change with the age -->
+                <div class="field">
+                    <input id="documentNumber" type="text" formControlName="documentNumber" placeholder=" "
+                        inputmode="numeric" autocomplete="off" [appDocumentMask]="documentType()" />
+                    <label for="documentNumber">{{ documentLabel() }}</label>
+                    @if (form.controls.documentNumber.touched && form.controls.documentNumber.hasError('pattern')) {
+                    <p class="error">{{ documentFormatError() }}</p>
+                    }
+                </div>
+
+                <button type="submit" class="continue" [disabled]="!canContinue()">Continuar</button>
+            </form>
+        </section>
+    </div>
+</main>
