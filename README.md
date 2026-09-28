@@ -1,6 +1,6 @@
 # Pokémon Trainer
 
-Prueba técnica de frontend hecha con Angular. Creas un perfil de entrenador, eliges 3 Pokémon de la primera generación y ves el resumen de tu equipo con las barras de progreso de cada Pokémon.
+Prueba técnica de frontend hecha con Angular desarrollada por José Rodrigo Morales Rivas. Creas un perfil de entrenador, eliges 3 Pokémon de la primera generación y ves el resumen de tu equipo con las barras de progreso de cada Pokémon. Los datos vienen de la [PokeAPI](https://pokeapi.co/).
 
 ## Requisitos
 
@@ -16,7 +16,7 @@ npm install
 ## Correr en desarrollo
 
 ```bash
-ng serve
+npm start
 ```
 
 Luego abre `http://localhost:4200/`. La app recarga sola cuando cambias un archivo.
@@ -24,7 +24,7 @@ Luego abre `http://localhost:4200/`. La app recarga sola cuando cambias un archi
 ## Build de producción
 
 ```bash
-ng build
+npm run build
 ```
 
 El resultado queda en la carpeta `dist/`.
@@ -56,9 +56,7 @@ Las ramas de feature que se trabajaron:
 | --- | --- |
 | `feature/core-and-data-services` | Modelos, constantes y los servicios de PokeAPI y del entrenador |
 | `feature/trainer-form` | Formulario de perfil con sus validaciones |
-| `feature/pokemon-list` | Listado de Pokémon, buscador y selección del equipo |
-| `feature/trainer-detail` | Resumen del entrenador con las stats del equipo |
-| `feature/dockerfile` | Dockerfile y configuración de nginx |
+| `feature/pokemon-list` | Listado de Pokémon, buscador, selección del equipo y resumen del entrenador |
 
 Los commits están en inglés siguiendo [Conventional Commits](https://www.conventionalcommits.org/) (`feat`, `fix`, `chore`).
 
@@ -67,12 +65,3 @@ Los commits están en inglés siguiendo [Conventional Commits](https://www.conve
 - El perfil se guarda en el `localStorage` del navegador, así que si recargas la página no pierdes los datos. Para empezar de cero, límpialo desde las herramientas de desarrollo del navegador.
 - La primera carga del listado de Pokémon tarda unos segundos porque trae los 151 con su detalle.
 - La app necesita conexión a internet para consultar la PokeAPI.
-
-## Estructura
-
-```
-src/app/
-├── core/        # modelos, constantes, servicios y guards
-├── features/    # una carpeta por pantalla
-└── shared/      # componentes y utilidades reutilizables
-```
