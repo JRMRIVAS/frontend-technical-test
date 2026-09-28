@@ -46,9 +46,9 @@ La imagen se construye en dos etapas: la primera compila la app con Node y la se
 
 El repositorio sigue Git Flow:
 
-- **`master`** — la rama de producción. Solo recibe lo que ya está terminado y probado.
+- **`master`** — la rama de producción. Solo recibe lo que ya está terminado.
 - **`develop`** — la rama de integración. Aquí se va juntando el avance antes de pasarlo a `master`.
-- **`feature/*`** — una rama por cada parte del proyecto, que sale de `develop` y vuelve a `develop` al terminar.
+- **`feature/*`** — una rama por cada parte del proyecto.
 
 Las ramas de feature que se trabajaron:
 
