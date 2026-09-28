@@ -1,59 +1,78 @@
-# AngularFrontendTest
+# Pokémon Trainer
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.24.
+Prueba técnica de frontend hecha con Angular. Creas un perfil de entrenador, eliges 3 Pokémon de la primera generación y ves el resumen de tu equipo con las barras de progreso de cada Pokémon.
 
-## Development server
+## Requisitos
 
-To start a local development server, run:
+- Node.js (versión LTS)
+- npm
+
+## Instalación
+
+```bash
+npm install
+```
+
+## Correr en desarrollo
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Luego abre `http://localhost:4200/`. La app recarga sola cuando cambias un archivo.
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+## Build de producción
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+El resultado queda en la carpeta `dist/`.
 
-## Running unit tests
+## Correr con Docker
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+Si tienes Docker instalado, no hace falta instalar Node ni las dependencias:
 
 ```bash
-ng e2e
+docker build -t pokemon-trainer .
+docker run -p 8080:80 pokemon-trainer
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Luego abre `http://localhost:8080`. Para detenerlo, `Ctrl+C`.
 
-## Additional Resources
+La imagen se construye en dos etapas: la primera compila la app con Node y la segunda sirve los archivos con nginx, así que la imagen final no lleva Node ni `node_modules`. La configuración de nginx está en `nginx.conf` y redirige cualquier ruta a `index.html`, que es lo que necesita el enrutador de Angular para que funcione recargar la página en `/profile` o `/pokemon`.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Ramas
+
+El repositorio sigue Git Flow:
+
+- **`master`** — la rama de producción. Solo recibe lo que ya está terminado y probado.
+- **`develop`** — la rama de integración. Aquí se va juntando el avance antes de pasarlo a `master`.
+- **`feature/*`** — una rama por cada parte del proyecto, que sale de `develop` y vuelve a `develop` al terminar.
+
+Las ramas de feature que se trabajaron:
+
+| Rama | Qué incluye |
+| --- | --- |
+| `feature/core-and-data-services` | Modelos, constantes y los servicios de PokeAPI y del entrenador |
+| `feature/trainer-form` | Formulario de perfil con sus validaciones |
+| `feature/pokemon-list` | Listado de Pokémon, buscador y selección del equipo |
+| `feature/trainer-detail` | Resumen del entrenador con las stats del equipo |
+| `feature/dockerfile` | Dockerfile y configuración de nginx |
+
+Los commits están en inglés siguiendo [Conventional Commits](https://www.conventionalcommits.org/) (`feat`, `fix`, `chore`).
+
+## Notas
+
+- El perfil se guarda en el `localStorage` del navegador, así que si recargas la página no pierdes los datos. Para empezar de cero, límpialo desde las herramientas de desarrollo del navegador.
+- La primera carga del listado de Pokémon tarda unos segundos porque trae los 151 con su detalle.
+- La app necesita conexión a internet para consultar la PokeAPI.
+
+## Estructura
+
+```
+src/app/
+├── core/        # modelos, constantes, servicios y guards
+├── features/    # una carpeta por pantalla
+└── shared/      # componentes y utilidades reutilizables
+```
