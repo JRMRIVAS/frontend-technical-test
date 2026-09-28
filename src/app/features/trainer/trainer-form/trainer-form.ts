@@ -141,7 +141,7 @@ export class TrainerForm {
     if (!file) return;
 
     if (!ALLOWED_PHOTO_TYPES.includes(file.type)) {
-      this.photoError.set('Only JPG or PNG images are allowed.');
+      this.photoError.set('Solo se permiten imágenes JPG o PNG.');
       input.value = '';
       return;
     }
