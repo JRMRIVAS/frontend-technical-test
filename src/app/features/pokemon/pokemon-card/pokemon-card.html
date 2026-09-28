@@ -1,0 +1,10 @@
+<button type="button" class="card" [class.selected]="selected()" [class.disabled]="disabled()"
+    [attr.aria-pressed]="selected()" [disabled]="disabled()" (click)="onClick()">
+    <!-- Sprites load lazily so the 151 images don't all download at once -->
+    <img class="sprite" [src]="pokemon().sprite" [alt]="pokemon().name" loading="lazy" />
+
+    <span class="tag">
+        <span class="id">{{ displayId() }}</span>
+        <span class="name">{{ pokemon().name }}</span>
+    </span>
+</button>

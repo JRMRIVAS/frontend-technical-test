@@ -1,0 +1,201 @@
+// Card height and gaps, used to work out the height of exactly 3 rows.
+$card-height: 137.58px;
+$row-gap: 16px;
+$visible-rows: 3;
+
+.page {
+    padding: 35px 90px;
+    box-sizing: border-box;
+}
+
+.header {
+    margin-bottom: 36px;
+
+    .title-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .back-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        color: var(--color-title-form);
+        background: none;
+        border: none;
+        cursor: pointer;
+        line-height: 1;
+
+        svg {
+            width: 26px;
+            height: 26px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+
+    .title {
+        margin: 0;
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--color-title-form);
+        letter-spacing: -0.3px;
+    }
+
+    .subtitle {
+        margin: 6px 0 0;
+        font-size: 16px;
+        color: var(--color-subtitle);
+    }
+}
+
+.layout {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 48px 364px;
+}
+
+// Wide enough for 3 cards plus the gaps and the scrollbar
+.picker {
+    width: 536px;
+    max-width: 100%;
+
+    h2 {
+        margin: 0 0 6px;
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--color-title-form);
+    }
+
+    .picker-text {
+        margin: 0 0 20px;
+        font-size: 14px;
+        color: var(--color-subtitle);
+    }
+}
+
+.search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 40px;
+    padding: 0 14px;
+    background: #f4f6f8;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    box-sizing: border-box;
+
+    &:focus-within {
+        border-color: var(--color-primary);
+    }
+
+    svg {
+        flex-shrink: 0;
+        width: 16px;
+        fill: none;
+        stroke: var(--color-primary);
+        stroke-width: 2;
+        stroke-linecap: round;
+    }
+
+    input {
+        width: 100%;
+        font-family: inherit;
+        font-size: 13px;
+        color: #1e293b;
+        background: none;
+        border: 0;
+
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
+// Exactly 3 rows tall, the rest is reached by scrolling inside
+.grid-scroll {
+    height: $card-height * $visible-rows + $row-gap * ($visible-rows - 1) + 4px;
+    margin-top: 20px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-right: 12px;
+
+    // Thin scrollbar, like in the design
+    scrollbar-width: thin;
+    scrollbar-color: #cfd8e3 transparent;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #cfd8e3;
+        border-radius: 999px;
+    }
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 163.44px);
+    gap: $row-gap 16px;
+}
+
+.feedback {
+    margin-top: 40px;
+    font-size: 14px;
+    color: var(--color-subtitle);
+    text-align: center;
+
+    .error {
+        margin: 0 0 12px;
+        color: #dc2626;
+    }
+}
+
+.retry {
+    padding: 8px 20px;
+    font-family: inherit;
+    font-size: 14px;
+    color: #fff;
+    background: var(--color-primary);
+    border: 0;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.save {
+    display: block;
+    width: 170px;
+    height: 44px;
+    margin: 28px auto 0;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    background: var(--color-primary);
+    border: 0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+
+    &:hover:not(:disabled) {
+        opacity: 0.92;
+    }
+
+    &:disabled {
+        color: #8c95a0;
+        background: #e2e4e8;
+        cursor: not-allowed;
+    }
+}

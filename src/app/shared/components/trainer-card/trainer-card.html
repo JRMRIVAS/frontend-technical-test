@@ -1,0 +1,22 @@
+<article class="card">
+    <h2 class="name">{{ trainer().name }}</h2>
+
+    <div class="avatar">
+        <img [src]="trainer().photo" [alt]="trainer().name" />
+    </div>
+
+    <dl class="data">
+        @if (trainer().hobby) {
+        <dt>Pasatiempo:</dt>
+        <dd>{{ trainer().hobby }}</dd>
+        }
+
+        <dt>Edad:</dt>
+        <dd>{{ age() }} años</dd>
+
+        @if (showDocument()) {
+        <dt>DUI:</dt>
+        <dd>{{ trainer().documentNumber }}</dd>
+        }
+    </dl>
+</article>

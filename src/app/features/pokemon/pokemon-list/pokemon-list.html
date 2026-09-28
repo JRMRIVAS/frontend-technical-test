@@ -1,0 +1,58 @@
+@if (loading()) {
+<app-loading-screen message="Cargando Pokémon..." />
+} @else {
+<main class="page">
+    <header class="header">
+        <div class="title-row">
+            <button type="button" class="back-btn" (click)="goBack()" aria-label="Volver">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M15 18l-6-6 6-6" />
+                </svg>
+            </button>
+            <h1 class="title">¡Ya casi términamos!</h1>
+        </div>
+        <p class="subtitle">Revisa la información, y completa lo solicitado.</p>
+    </header>
+
+    <div class="layout">
+        @if (trainer(); as profile) {
+        <app-trainer-card [trainer]="profile" />
+        }
+
+        <section class="picker">
+            <h2>Pokémon</h2>
+            <p class="picker-text">Selecciona {{ teamSize }} Pokémon para que sean parte de tu equipo</p>
+
+            <div class="search">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="11" cy="11" r="7" />
+                    <path d="M20 20l-3.5-3.5" />
+                </svg>
+                <input type="search" placeholder="Buscar por índice, nombre..." [value]="search()"
+                    (input)="onSearch($event)" />
+            </div>
+
+            @if (error()) {
+            <div class="feedback">
+                <p class="error">{{ error() }}</p>
+                <button type="button" class="retry" (click)="loadPokemons()">Reintentar</button>
+            </div>
+            } @else if (!filtered().length) {
+            <p class="feedback">No encontramos Pokémon con esa búsqueda.</p>
+            } @else {
+            <!-- Only this box scrolls, the rest of the page stays put -->
+            <div class="grid-scroll">
+                <div class="grid">
+                    @for (pokemon of filtered(); track pokemon.id) {
+                    <app-pokemon-card [pokemon]="pokemon" [selected]="isSelected(pokemon.id)"
+                        [disabled]="teamFull() && !isSelected(pokemon.id)" (toggled)="onToggle($event)" />
+                    }
+                </div>
+            </div>
+            }
+
+            <button type="button" class="save" [disabled]="!teamFull()" (click)="save()">Guardar</button>
+        </section>
+    </div>
+</main>
+}
